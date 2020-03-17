@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:socials/views/sign_up_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class LoginScreen extends StatefulWidget {
   static final String routeName = 'Login_screen';
@@ -31,7 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Text(
             'Instagram',
-            style: TextStyle(fontSize: 40),
+            style: GoogleFonts.abel(
+              fontSize: 30
+            )
           ),
           Form(
               key: _formKey,

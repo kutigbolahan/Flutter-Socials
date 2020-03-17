@@ -24,7 +24,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(
+                  child: Container(
+          height: MediaQuery.of(context).size.height,
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,7 +107,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ],
               ))
         ],
-      )),
+      ),
+        ),
+      ),
     );
   }
 }
