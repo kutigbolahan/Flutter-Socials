@@ -61,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       vertical: 10,
                       ),
                     child: TextFormField(
+                      obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'Password',
                       ),
