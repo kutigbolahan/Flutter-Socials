@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:socials/controllers/auth.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class SignUpScreen extends StatefulWidget {
   static final String routeName = 'Signup_screen';
@@ -18,7 +19,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   _submit() {
     if (_formKey.currentState.validate()) {
-      (_formKey.currentState.save());
+      _formKey.currentState.save();
 
       AuthService.signUpUser(context, _name, _email, _password);
     }
@@ -34,12 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(
-                'Instagram',
-                style:GoogleFonts.abel(
-              fontSize: 30
-            )
-              ),
+              Text('Instagram', style: GoogleFonts.abel(fontSize: 30)),
               Form(
                   key: _formKey,
                   child: Column(
@@ -84,7 +80,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           obscureText: true,
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            
                           ),
                           validator: (input) => input.length < 6
                               ? 'Must be atleast 6 characters'
@@ -118,6 +113,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   TextStyle(color: Colors.white, fontSize: 15),
                             )),
                       ),
+                      SignInButton(
+                        Buttons.Google,
+                          text: 'Sign in with Google',
+                           onPressed: () {})
                     ],
                   ))
             ],

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:socials/controllers/auth.dart';
+import 'package:socials/views/feed_screen.dart';
+
 import 'package:socials/views/sign_up_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -18,9 +22,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   _submit(){
     if (_formKey.currentState.validate()) {
-      (_formKey.currentState.save());
-      print(_email);
-      print(_password);
+      _formKey.currentState.save();
+      AuthService.login(context,_email, _password);
+      
+      
     }
   }
   @override
@@ -92,8 +97,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text('Sign up',style: TextStyle(
                         color: Colors.white,
                         fontSize: 15
-                      ),)),
+                      ),),),
                   ),
+                  SignInButton(
+                    Buttons.Google,
+                  text: 'Sign in with Google',
+                   onPressed:(){
+                      signInWithGoogle(context)
+                .whenComplete(() => 
+                Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  return FeedScreen();
+                })));
+                   }
+                   )
                 ],
               ))
         ],
