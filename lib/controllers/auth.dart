@@ -18,7 +18,7 @@ class AuthService with ChangeNotifier {
       FirebaseUser signedInuser = authResult.user;
       if (signedInuser != null) {
         _firestore
-            .collection('/users2')
+            .collection('/users4')
             .document(signedInuser.uid)
             .setData({'name': name, 'email': email, 'profileImageUrl': ''});
         Navigator.pushNamed(context, FeedScreen.routeName);
@@ -39,36 +39,37 @@ class AuthService with ChangeNotifier {
   }
 }
 
-final _auth = FirebaseAuth.instance;
-final _firestore = Firestore.instance;
-GoogleSignIn _googleSignIn = GoogleSignIn();
 
-Future<String> signInWithGoogle(BuildContext context ) async {
-  final GoogleSignInAccount _googlesigninaccount = await _googleSignIn.signIn();
-  final GoogleSignInAuthentication _gSA =
-      await _googlesigninaccount.authentication;
-  final AuthCredential _credential = GoogleAuthProvider.getCredential(
-      idToken: _gSA.idToken, accessToken: _gSA.accessToken);
+// final _auth = FirebaseAuth.instance;
+// final _firestore = Firestore.instance;
+// GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  final AuthResult _authResult = await _auth.signInWithCredential(_credential);
-  final FirebaseUser user = _authResult.user;
-   if (user != null) {
-        _firestore
-            .collection('/users2')
-            .document(user.uid)
-            .setData({'name': '', 'email': '', 'profileImageUrl': ''});
-        Navigator.pushNamed(context, FeedScreen.routeName);
-      } 
+// Future<String> signInWithGoogle(BuildContext context ) async {
+//   final GoogleSignInAccount _googlesigninaccount = await _googleSignIn.signIn();
+//   final GoogleSignInAuthentication _gSA =
+//       await _googlesigninaccount.authentication;
+//   final AuthCredential _credential = GoogleAuthProvider.getCredential(
+//       idToken: _gSA.idToken, accessToken: _gSA.accessToken);
+
+//   final AuthResult _authResult = await _auth.signInWithCredential(_credential);
+//   final FirebaseUser user = _authResult.user;
+//    if (user != null) {
+//         _firestore
+//             .collection('/users2')
+//             .document(user.uid)
+//             .setData({'name': '', 'email': '', 'profileImageUrl': ''});
+//         Navigator.pushNamed(context, FeedScreen.routeName);
+//       } 
     
 
-  assert(await user.getIdToken() != null);
+//   assert(await user.getIdToken() != null);
 
-  final FirebaseUser _currentUser = await _auth.currentUser();
-  assert(user.uid == _currentUser.uid);
+//   final FirebaseUser _currentUser = await _auth.currentUser();
+//   assert(user.uid == _currentUser.uid);
 
-  return 'SignInWithGoogle Succeded: $user';
-}
+//   return 'SignInWithGoogle Succeded: $user';
+// }
 
-void signOutGoogle() async {
-  await _googleSignIn.signOut();
-}
+// void signOutGoogle() async {
+//   await _googleSignIn.signOut();
+// }

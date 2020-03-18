@@ -53,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           validator: (input) => input.trim().isEmpty
                               ? 'Please enter a valid name'
                               : null,
-                          onSaved: (input) => _email = input,
+                          onSaved: (input) => _name = input,
                         ),
                       ),
                       Padding(

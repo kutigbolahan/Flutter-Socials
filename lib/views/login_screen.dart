@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:socials/controllers/auth.dart';
-import 'package:socials/views/feed_screen.dart';
+
 
 import 'package:socials/views/sign_up_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -103,11 +103,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     Buttons.Google,
                   text: 'Sign in with Google',
                    onPressed:(){
-                      signInWithGoogle(context)
-                .whenComplete(() => 
-                Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                  return FeedScreen();
-                })));
+                //       signInWithGoogle(context)
+                // .whenComplete(() => 
+                // Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                //   return FeedScreen();
+                // })));
                    }
                    )
                 ],
