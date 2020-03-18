@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:socials/views/feed_screen.dart';
 import 'package:socials/views/login_screen.dart';
 import 'package:socials/views/sign_up_screen.dart';
-
+import 'package:socials/views/home_screen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.onAuthStateChanged,
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
-            return FeedScreen();
+            return HomeScreen();
           } else {
             return LoginScreen();
           }
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: _getScreenId(),
       routes: {
         LoginScreen.routeName: (context) => LoginScreen(),
         SignUpScreen.routeName: (context) => SignUpScreen(),

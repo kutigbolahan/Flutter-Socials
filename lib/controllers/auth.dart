@@ -30,12 +30,18 @@ class AuthService with ChangeNotifier {
 
   static void logout(BuildContext context) {
     _auth.signOut();
-    Navigator.pushNamed(context, LoginScreen.routeName);
+    Navigator.pushNamed(context, FeedScreen.routeName);
+    
   }
 
   static void login(BuildContext context, String email, String password) {
-    _auth.signInWithEmailAndPassword(email: email, password: password);
+   try {
+      _auth.signInWithEmailAndPassword(email: email, password: password);
     Navigator.pushNamed(context, FeedScreen.routeName);
+   } catch (e) {
+     return e;
+   }
+   
   }
 }
 
