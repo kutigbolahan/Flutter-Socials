@@ -1,6 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:socials/views/feed_screen.dart';
+
+import 'package:socials/views/activity_screen.dart';
+import 'package:socials/views/search_screen.dart';
+
+import 'package:socials/views/createpost_screen.dart';
+import 'package:socials/views/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -10,7 +17,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentTab=0;
+  int _currentTab = 0;
+  PageController _pageController;
+  @override
+  void initState() {
+    _pageController = PageController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,34 +38,52 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: CupertinoTabBar(
-        currentIndex: _currentTab,
-        onTap: (int index){
+      body: PageView(
+        controller: _pageController,
+        children: <Widget>[
+          FeedScreen(),
+          SearchScreen(),
+          CreatePostScreen(),
+          ActivityScreen(),
+          ProfileScreen()
+        ],
+        onPageChanged: (int index){
           setState(() {
-            _currentTab = index;
+            _currentTab= index;
           });
+          _pageController.animateToPage(
+            index, duration: Duration(milliseconds: 200), 
+            curve: Curves.bounceIn);
         },
-        items: [
-        
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.home,
-            size: 25,
-          ),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search, size: 25),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.photo_camera, size: 25),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.notifications, size: 25),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle, size: 25),
-        ),
-      ]),
+      ),
+      bottomNavigationBar: CupertinoTabBar(
+          currentIndex: _currentTab,
+          onTap: (int index) {
+            setState(() {
+              _currentTab = index;
+            });
+          },
+          activeColor: Colors.black,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                size: 25,
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search, size: 25),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.photo_camera, size: 25),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notifications, size: 25),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle, size: 25),
+            ),
+          ]),
     );
   }
 }
