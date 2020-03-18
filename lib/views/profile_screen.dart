@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:socials/utilities/constant.dart';
 import 'package:socials/models/user_model.dart';
+import 'package:socials/views/editprofile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   //in order to kow the user we are looking at currently or the signed in user
@@ -93,7 +94,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: FlatButton(
                                 color: Colors.blue,
                                 textColor: Colors.white,
-                                onPressed: () {},
+                                onPressed: () =>Navigator.push(
+                                  context, MaterialPageRoute(builder: (context)=>
+                                  EditProfileScreen(user: user,)
+                                  )
+                                  ),
                                 child: Text('Edit Profile'),
                               ),
                             )

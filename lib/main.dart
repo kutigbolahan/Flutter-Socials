@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
+          color: Colors.black
+        ),
         primarySwatch: Colors.blue,
       ),
       home: _getScreenId(),
