@@ -10,7 +10,8 @@ import 'package:socials/views/createpost_screen.dart';
 import 'package:socials/views/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  final String userId;
+  HomeScreen({Key key, this.userId}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SearchScreen(),
           CreatePostScreen(),
           ActivityScreen(),
-          ProfileScreen()
+          ProfileScreen(userId: widget.userId,)
         ],
         onPageChanged: (int index) {
           setState(() {
