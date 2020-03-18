@@ -21,8 +21,8 @@ class AuthService with ChangeNotifier {
             .collection('/users4')
             .document(signedInuser.uid)
             .setData({'name': name, 'email': email, 'profileImageUrl': ''});
-        Navigator.pushNamed(context, FeedScreen.routeName);
-      } else {}
+        Navigator.pop(context);
+      } 
     } catch (e) {
       return e;
     }
@@ -30,7 +30,7 @@ class AuthService with ChangeNotifier {
 
   static void logout(BuildContext context) {
     _auth.signOut();
-    Navigator.pushNamed(context, FeedScreen.routeName);
+   // Navigator.pushNamed(context, FeedScreen.routeName);
     
   }
 

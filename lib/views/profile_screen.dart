@@ -130,6 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           user.bio,
                           style: TextStyle(
                             fontSize: 15,
+                            color: Colors.black
                           ),
                         ),
                       ),
