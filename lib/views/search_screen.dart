@@ -9,7 +9,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('data'),
+      child: Text('s'),
     );
   }
 }

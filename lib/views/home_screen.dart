@@ -47,14 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ActivityScreen(),
           ProfileScreen()
         ],
-        onPageChanged: (int index){
+        onPageChanged: (int index) {
           setState(() {
-            _currentTab= index;
+            _currentTab = index;
           });
-          _pageController.animateToPage(
-            index, duration: Duration(milliseconds: 200), 
-            curve: Curves.bounceIn);
-        },
+        }
       ),
       bottomNavigationBar: CupertinoTabBar(
           currentIndex: _currentTab,
@@ -62,6 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
             setState(() {
               _currentTab = index;
             });
+             _pageController.animateToPage(index,
+              duration: Duration(milliseconds: 200), curve: Curves.easeIn);
+        
           },
           activeColor: Colors.black,
           items: [
