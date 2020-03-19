@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socials/models/user_model.dart';
 import 'package:socials/controllers/databaseService.dart';
+import 'package:socials/controllers/storage_service.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final User user;
@@ -37,17 +39,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   _displayProfileImage(){
     if (_profileImage == null) {
-      
+      if(widget.user.profileImageUrl.isEmpty){
+     return AssetImage('assets/images/1.jpg');
+      }else{
+        return CachedNetworkImageProvider(widget.user.profileImageUrl);
+      }
     }else{
       return FileImage(_profileImage);
     }
   }
-  _submit(){
+  _submit()async{
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       //update user in database
       
       String _profileImageUrl ='';
+
+      if (_profileImage == null){
+        _profileImageUrl = widget.user.profileImageUrl;
+      }else{
+        _profileImageUrl =await StorageService.uploadUserProfileImage(widget.user.profileImageUrl, _profileImage);
+      }
       User user = User(
         id: widget.user.id,
         name: _name,
