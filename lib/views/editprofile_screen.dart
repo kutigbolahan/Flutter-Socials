@@ -20,52 +20,55 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   File _profileImage;
   String _name = '';
   String _bio = '';
+  bool _isLoading = false;
   @override
-  void initState() { 
+  void initState() {
     super.initState();
-    _name=widget.user.name;
-    _bio =widget.user.bio;
+    _name = widget.user.name;
+    _bio = widget.user.bio;
   }
 
-  _handleImageFromGallery()async{
-   File imageFile =await ImagePicker.pickImage(source: ImageSource.gallery);
-   if (imageFile != null) {
-     setState(() {
-       _profileImage =imageFile;
-     });
-     
-   }
+  _handleImageFromGallery() async {
+    File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    if (imageFile != null) {
+      setState(() {
+        _profileImage = imageFile;
+      });
+    }
   }
 
-  _displayProfileImage(){
+  _displayProfileImage() {
     if (_profileImage == null) {
-      if(widget.user.profileImageUrl.isEmpty){
-     return AssetImage('assets/images/1.jpg');
-      }else{
+      if (widget.user.profileImageUrl.isEmpty) {
+        return AssetImage('assets/images/1.jpg');
+      } else {
         return CachedNetworkImageProvider(widget.user.profileImageUrl);
       }
-    }else{
+    } else {
       return FileImage(_profileImage);
     }
   }
-  _submit()async{
+
+  _submit() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       //update user in database
-      
-      String _profileImageUrl ='';
+      setState(() {
+        _isLoading = true;
+      });
+      String _profileImageUrl = '';
 
-      if (_profileImage == null){
+      if (_profileImage == null) {
         _profileImageUrl = widget.user.profileImageUrl;
-      }else{
-        _profileImageUrl =await StorageService.uploadUserProfileImage(widget.user.profileImageUrl, _profileImage);
+      } else {
+        _profileImageUrl = await StorageService.uploadUserProfileImage(
+            widget.user.profileImageUrl, _profileImage);
       }
       User user = User(
-        id: widget.user.id,
-        name: _name,
-        profileImageUrl: _profileImageUrl,
-        bio: _bio
-      );
+          id: widget.user.id,
+          name: _name,
+          profileImageUrl: _profileImageUrl,
+          bio: _bio);
       //database update
       DatabaseService.updateUser(user);
       Navigator.pop(context);
@@ -83,10 +86,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          child: Padding(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: ListView(
+          children: <Widget>[
+            _isLoading ? LinearProgressIndicator(backgroundColor: Colors.blue[200],
+            valueColor: AlwaysStoppedAnimation(Colors.blue),
+            )
+            : SizedBox.shrink(),
+          Padding(
             padding: const EdgeInsets.all(30),
             child: Form(
               key: _formKey,
@@ -98,7 +106,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     backgroundImage: _displayProfileImage(),
                   ),
                   FlatButton(
-                      onPressed:  _handleImageFromGallery,
+                      onPressed: _handleImageFromGallery,
                       child: Text(
                         'Change profile image',
                         style: TextStyle(
@@ -130,21 +138,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   Container(
                     margin: EdgeInsets.all(40),
-                    height:40,
+                    height: 40,
                     width: 250,
                     child: FlatButton(
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      onPressed: _submit, 
-                      child: Text('Save Profile',
-                      style: TextStyle(fontSize:15),
-                      )),
+                        color: Colors.blue,
+                        textColor: Colors.white,
+                        onPressed: _submit,
+                        child: Text(
+                          'Save Profile',
+                          style: TextStyle(fontSize: 15),
+                        )),
                   )
                 ],
               ),
             ),
           ),
-        ),
+        ]),
       ),
     );
   }
