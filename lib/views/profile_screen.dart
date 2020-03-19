@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:socials/utilities/constant.dart';
 import 'package:socials/models/user_model.dart';
 import 'package:socials/views/editprofile_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ProfileScreen extends StatefulWidget {
   //in order to kow the user we are looking at currently or the signed in user
@@ -35,6 +36,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: <Widget>[
                       CircleAvatar(
                         radius: 50,
+                        backgroundImage: user.profileImageUrl.isEmpty ?AssetImage('assets/images/1.jpg'):CachedNetworkImageProvider(
+                          user.profileImageUrl
+                        )
                       ),
                       Expanded(
                         child: Column(
