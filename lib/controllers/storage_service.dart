@@ -19,7 +19,7 @@ class StorageService{
     
   }
 
-  StorageUploadTask uploadTask =storageRef.child('images/users4/userProfile_$photoId.jpg').putFile(image);
+  StorageUploadTask uploadTask = storageRef.child('images/users4/userProfile_$photoId.jpg').putFile(image);
   StorageTaskSnapshot storageSnap= await uploadTask.onComplete;
   String downloadUrl = await storageSnap.ref.getDownloadURL();
   return downloadUrl;

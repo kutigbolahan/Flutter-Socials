@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:socials/utilities/constant.dart';
 import 'package:socials/models/user_model.dart';
 import 'package:socials/views/editprofile_screen.dart';
@@ -18,6 +19,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+       appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        title: Center(
+          child: Text(
+            'Instagram',
+            style: GoogleFonts.abel(color: Colors.black, fontSize: 20),
+          ),
+        ),
+      ),
       body: FutureBuilder(
           future: usersRef.document(widget.userId).get(),
           builder: (context, snapshot) {

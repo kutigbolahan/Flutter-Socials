@@ -29,16 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.white,
-        title: Center(
-          child: Text(
-            'Instagram',
-            style: GoogleFonts.abel(color: Colors.black, fontSize: 20),
-          ),
-        ),
-      ),
+     
       body: PageView(
         controller: _pageController,
         children: <Widget>[
