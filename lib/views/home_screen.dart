@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:socials/models/user_data.dart';
+
 import 'package:socials/views/feed_screen.dart';
 
 import 'package:socials/views/activity_screen.dart';
@@ -10,8 +12,7 @@ import 'package:socials/views/createpost_screen.dart';
 import 'package:socials/views/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String userId;
-  HomeScreen({Key key, this.userId}) : super(key: key);
+  
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -28,8 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(Provider.of<UserData>(context).currentUserId );
     return Scaffold(
-     
+      
       body: PageView(
         controller: _pageController,
         children: <Widget>[
@@ -37,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SearchScreen(),
           CreatePostScreen(),
           ActivityScreen(),
-          ProfileScreen(userId: widget.userId,)
+          ProfileScreen(userId:  Provider.of<UserData>(context).currentUserId)
         ],
         onPageChanged: (int index) {
           setState(() {

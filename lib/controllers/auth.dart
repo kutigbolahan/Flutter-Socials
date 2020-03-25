@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:socials/models/user_data.dart';
 
 import 'package:socials/views/feed_screen.dart';
 
@@ -21,6 +23,7 @@ class AuthService with ChangeNotifier {
             .collection('/users4')
             .document(signedInuser.uid)
             .setData({'name': name, 'email': email, 'profileImageUrl': ''});
+        Provider.of<UserData>(context).currentUserId= signedInuser.uid;
         Navigator.pop(context);
       } 
     } catch (e) {
