@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:socials/controllers/auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
@@ -21,7 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      AuthService.signUpUser(context, _name, _email, _password);
+      Provider.of<AuthService>(context).signUpUser(context, _name, _email, _password);
     }
   }
 

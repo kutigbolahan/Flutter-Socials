@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:socials/controllers/auth.dart';
 import 'package:socials/models/user_data.dart';
 import 'package:socials/views/feed_screen.dart';
 import 'package:socials/views/login_screen.dart';
@@ -28,9 +29,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => UserData(),
-      child: MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context)=> UserData()),
+        ChangeNotifierProvider(create: (context)=> AuthService())
+      ],
+          child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryIconTheme:
