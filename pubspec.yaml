@@ -37,6 +37,7 @@ dependencies:
   path_provider: ^1.6.5
   uuid: ^2.0.4
   provider: ^4.0.4
+  image_cropper: ^1.1.0
 
 dev_dependencies:
   flutter_test:

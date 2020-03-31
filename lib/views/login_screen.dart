@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   _submit() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      Provider.of<AuthService>(context).login(context, _email, _password);
+      Provider.of<AuthService>(context, listen:false).login(context, _email, _password);
      // Provider.of<AuthService>(context).signInWithGoogle(context);
     }
   }

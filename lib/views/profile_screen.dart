@@ -34,7 +34,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.black,
+                  strokeWidth: 2.0,
+                  
+                ),
               );
             }
             User user=User.fromDoc(snapshot.data);
