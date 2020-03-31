@@ -5,6 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:socials/controllers/storage_service.dart';
+import 'package:socials/controllers/databaseService.dart';
+import 'package:socials/models/post_model.dart';
+import 'package:socials/models/user_data.dart';
+import 'package:provider/provider.dart'; 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class CreatePostScreen extends StatefulWidget {
   @override
@@ -89,6 +96,23 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     if (!_isLoading && _image !=null && _caption.isNotEmpty) {
       setState(() {
         _isLoading = true;
+      });
+      //create post
+      String imageUrl = await StorageService.uploadPost(_image);
+       Post post = Post(
+         imageUrl: imageUrl,
+         caption: _caption,
+         likes: {},
+         authorId: Provider.of<UserData>(context).currentUserId,
+         timestamp: Timestamp.fromDate(DateTime.now()),
+       );
+       DatabaseService.createPost(post);
+      //reset data
+      _captionController.clear();
+      setState(() {
+        _caption = '';
+        _image = null;
+        _isLoading = false;
       });
     }
   }
