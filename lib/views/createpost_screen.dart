@@ -93,7 +93,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   }
 
   _submit()async{
-    if (!_isLoading && _image !=null && _caption.isNotEmpty) {
+    if (!_isLoading && _image != null && _caption.isNotEmpty) {
       setState(() {
         _isLoading = true;
       });
@@ -133,7 +133,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         ),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.add),
-           onPressed: () => _submit)
+           onPressed: () => _submit
+           )
         ],
       ),
       body: GestureDetector(
@@ -142,7 +143,17 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 child: Container(
             height: height,
                   child: Column(
+                    
               children: <Widget>[
+               ! _isLoading ? Padding(
+                  padding: EdgeInsets.only(bottom:10),
+                  child: LinearProgressIndicator(
+                    backgroundColor: Colors.blue,
+                    valueColor: AlwaysStoppedAnimation(
+                      Colors.grey
+                    ),
+                  ),
+                ):SizedBox(height: 3,),
                 GestureDetector(
                   onTap: _showSelectImageDialog,
                   child: Container(
@@ -158,7 +169,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     )
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox.shrink(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: TextField(

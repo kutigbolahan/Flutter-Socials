@@ -22,7 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      Provider.of<AuthService>(context).signUpUser(context, _name, _email, _password);
+      Provider.of<AuthService>(context, listen: false).signUpUser(context, _name, _email, _password);
     }
   }
 
